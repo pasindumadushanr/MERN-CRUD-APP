@@ -1,15 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const router = require('./Routes/UserRoutes');
 
 const app = express();
 
 // Middleware
-app.use("/", (req, res) => {
-    res.send("It is working");
-});
+app.use(express.json());
+app.use("/", router);
 
-// Connect to MongoDB
-mongoose.connect("mongodb+srv://admin:lFoGV38CCQ0VAiIO@cluster0.tw6ie.mongodb.net/")
+// MongoDB Connection
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://admin:lFoGV38CCQ0VAiIO@cluster0.tw6ie.mongodb.net/<your_database_name>";
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Connected to database");
         app.listen(5000, () => {
@@ -17,6 +20,5 @@ mongoose.connect("mongodb+srv://admin:lFoGV38CCQ0VAiIO@cluster0.tw6ie.mongodb.ne
         });
     })
     .catch((err) => {
-        console.log(err);
+        console.log("Error connecting to database:", err);
     });
-//lFoGV38CCQ0VAiIO
