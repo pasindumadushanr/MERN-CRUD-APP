@@ -38,6 +38,36 @@ const addUser = async (req, res, next) => {
     return res.status(200).json({ user });
 };
 
+//Get user by ID
+
+const getById = async (req, res, next) => {
+
+
+    const Id = req.params.id;
+    let user;   
+
+    try{
+        user = await User.findById(Id);
+
+    }catch(err){
+        console.log(err);
+        
+    }
+    // not avaliable
+    if (!user) {
+        return res.status(404).json({ message: 'Could not create user' });
+    }
+    return res.status(200).json({ user });
+
+}
+
+
+
+
+
+
+
 // Export the controller functions
 exports.getAllusers = getAllusers;
 exports.addUser = addUser;
+exports.getById = getById;
