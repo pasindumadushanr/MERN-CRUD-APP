@@ -5,12 +5,14 @@ const router = require('./Routes/UserRoutes');
 
 const app = express();
 
-// Middleware
+// Middleware to parse JSON requests
 app.use(express.json());
+
+// Mount routes
 app.use("/", router);
 
 // MongoDB Connection
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://admin:lFoGV38CCQ0VAiIO@cluster0.tw6ie.mongodb.net/<your_database_name>";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://admin:lFoGV38CCQ0VAiIO@cluster0.tw6ie.mongodb.net/mern_crud";
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
